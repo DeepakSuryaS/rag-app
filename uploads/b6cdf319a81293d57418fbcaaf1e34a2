@@ -1,0 +1,41 @@
+### Installation
+
+```
+yarn add @yubi/yb-core-badge
+npm install @yubi/yb-core-badge
+```
+
+### Basic Usage
+
+```
+import { YbCoreBadge } from "@yubi/yb-core-badge";
+
+function App() {
+  return (
+    <div className="App">
+      <YbCoreBadge
+        variant={'solid'}
+        size={"m"}
+        label={'PlaceHolder'}
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Component Description
+
+| Property | Type                 | Description                              | Default         |
+| -------- | -------------------- | ---------------------------------------- | --------------- |
+| variant  | 'solid' \| 'subtle'  | Style variant of the badge               | 'solid'         |
+| size     | 's' \| 'm'           | Size of the badge                        | 's'             |
+| label    | 'string' \| 'number' | Label string which needs to be displayed |                 |
+| disabled | boolean              | To enable disabled state                 | false           |
+| testID   | string               | Test id for automation                   | 'yb_core_badge' |
+
+### Author
+
+**Nandhakumar Vijayakumar** <br />
+nandhakumar.vijayakumar@go-yubi.com

@@ -1,0 +1,97 @@
+### Installation
+
+```shell
+yarn add @yubi/yb-core-toggle
+npm install @yubi/yb-core-toggle
+```
+
+### Current Version
+
+```shell
+Stable - 3.0.0
+Beta - 3.0.0-beta.13
+
+```
+
+### Basic Usage
+
+```js
+import { PhoenixProvider } from "@yubi/phoenix-provider";
+import { Toggle, ToggleGroup } from "yb-core-toggle";
+
+const options = [
+    {
+        label: "Option 1",
+        value: "option_1",
+        active: false,
+        disabled: false, // optional
+        description: "Description of the option",
+    },
+    { label: "Option 2", value: "option_2", active: false },
+    { label: "Option 3", value: "option_3", active: false },
+    { label: "Option 4", value: "option_4", active: false },
+    { label: "Option 5", value: "option_5", active: false },
+    { label: "Option 6", value: "option_6", active: false },
+    {
+        label: "Option 7",
+        value: "option_7",
+        active: false,
+    },
+];
+
+const [active, setActive] = useState(true);
+
+<PhoenixProvider baseUrl={YOUR_BASE_URL}>
+    <ToggleGroup
+        label="Toggle group"
+        size="m"
+        direction="column"
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        options={options}
+        errorMessage="Sample error message"
+    />
+
+    <Toggle
+        key="Toggle"
+        label="Toggle"
+        value="toggle"
+        active={active}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+        onChange={(e) => {
+            setActive(!active);
+        }}
+    />
+</PhoenixProvider>;
+```
+
+### Props
+
+| Parameter              | Type                                             | Description                                                                                         | Default  |
+| :--------------------- | :----------------------------------------------- | :-------------------------------------------------------------------------------------------------- | :------- |
+| `size`                 | `s` or `m`                                       | The size of the toggle                                                                              | `m`      |
+| `label`                | `string`                                         | **Optional**. The text that renders after toggle                                                    | -        |
+| `value`                | `string`                                         | The value associated with the toggle                                                                | -        |
+| `description`          | `string`                                         | **Optional**. Description for toggle                                                                | -        |
+| `direction`            | `row` or `column`                                | **Optional**. Direction of toggles for a toggle group                                               | `row`    |
+| `togglePosition`       | `left` or `right`                                | **Optional**. Position of toggle icon                                                               | `left`   |
+| `isRequired`           | `boolean`                                        | **Optional**. Set to true if toggle group is mandatory                                              | `false`  |
+| `errorMessage`         | `string`                                         | Error message                                                                                       | -        |
+| `errorMessagePosition` | `top` or `bottom`                                | **Optional**. Position of error message in a group                                                  | `bottom` |
+| `options`              | Refer below                                      | Type of options array for toggle group                                                              | -        |
+| `disabled`             | `boolean`                                        | **Optional**. Set to true for disabled state                                                        | `false`  |
+| `active`               | `boolean`                                        | **Required**. Initial active state of the toggle                                                    | -        |
+| `touched`              | `boolean`                                        | Initial touched state of the toggle                                                                 | -        |
+| `onChange`             | `onChange?: (e: ToggleEvent) => void`            | **Required**. onChange callback                                                                     | -        |
+| `onBlur`               | `(e: NativeSyntheticEvent<TargetedEvent>) => {}` | onBlur callback                                                                                     | -        |
+| `onFocus`              | `(e: NativeSyntheticEvent<TargetedEvent>) => {}` | onFocus callback                                                                                    | -        |
+| `testIDObject`         | `Refer below`                                    | **Optional**. Test ID object for setting custom test ID keys. Default - `${COMPONENT_NAME}-${KEY}`. | -        |
+
+<br />
+
+### Author
+
+**Deepak Surya S** <br />
+deepaksurya.s@go-yubi.com

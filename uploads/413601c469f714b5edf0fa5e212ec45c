@@ -1,0 +1,140 @@
+### Platform Support
+
+-   Android
+-   iOS
+-   Web
+
+### Installation
+
+Install my-project with npm/yarn
+
+```shell
+yarn add @yubi/yb-core-checkbox
+  or
+npm install @yubi/yb-core-checkbox
+```
+
+or
+
+Install via package.json:
+
+```json
+"@yubi/yb-core-checkbox": "latest"
+```
+
+### Current Version
+
+```shell
+Stable - 1.1.0
+Beta - 3.0.0-beta.20
+
+```
+
+### Usage/Examples
+
+```js
+import { PhoenixProvider } from "@yubi/phoenix-provider";
+import { Checkbox } from "@yubi/yb-core-checkbox";
+
+const options = [
+    {
+        label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        value: "option_1",
+        checked: false,
+        disabled: false, // optional
+        indeterminate: false, // optional
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor sit",
+    },
+    { label: "Option 2", value: "option_2", checked: false },
+    { label: "Option 3", value: "option_3", checked: false },
+    { label: "Option 4", value: "option_4", checked: false },
+    { label: "Option 5", value: "option_5", checked: false },
+    { label: "Option 6", value: "option_6", checked: false },
+    {
+        label: "Option 7",
+        value: "option_7",
+        checked: false,
+        children: [
+            {
+                label: "Option 8",
+                value: "option_8",
+                checked: false,
+            },
+            {
+                label: "Option 9",
+                value: "option_9",
+                checked: false,
+            },
+        ],
+    },
+];
+
+<PhoenixProvider baseUrl={YOUR_BASE_URL}>
+    <Checkbox
+        label="Test checkbox group"
+        size="s"
+        direction="column"
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        options={options}
+        errorMessage="Sample error message"
+        isRequired
+    />
+</PhoenixProvider>;
+```
+
+### Component Discription
+
+| Parameter       | Type                                             | Description                                        | Default |
+| :-------------- | :----------------------------------------------- | :------------------------------------------------- | :------ |
+| `value`         | `string`                                         | **Required**. Native id of checkbox component      | -       |
+| `label`         | `string`                                         | **Required**. The text that renders after checkbox | -       |
+| `description`   | `string`                                         | The botton text that renders below label           | -       |
+| `disabled`      | `boolean`                                        | Set to true for disabled state                     | `false` |
+| `indeterminate` | `boolean`                                        | Shows partially selected state                     | `false` |
+| `size`          | `s m`                                            | The size of the checkbox                           | `m`     |
+| `checked`       | `boolean`                                        | Initial Checked state of the checkbox              | -       |
+| `onChange`      | `(e: CheckboxEvent) => void`                     | onChange callback                                  | -       |
+| `onBlur`        | `(e: NativeSyntheticEvent<TargetedEvent>) => {}` | onBlur callback                                    | -       |
+| `onFocus`       | `(e: NativeSyntheticEvent<TargetedEvent>) => {}` | onFocus callback                                   | -       |
+| `touched`       | `boolean`                                        | whether checkbox is touched or not                 | `false` |
+| `testID`        | `TestIDObject`                                   | TestIds for the component                          | `false` |
+| `options`       | Refer below for type                             | Type of options array                              |         |
+
+### Options Type
+
+```js
+Option = {
+    id?: number | string;
+    label: string;
+    value: string;
+    description?: string;
+    checked: boolean;
+    disabled?: boolean;
+    indeterminate?: boolean;
+    children?: Option[];
+}
+```
+
+### TestIDObject
+
+| Parameter      | Type     | Description                                  | Default                           |
+| :------------- | :------- | :------------------------------------------- | :-------------------------------- |
+| `parentID`     | `string` | Test Id for the parent                       | `yb-core-checkbox`                |
+| `labelClick`   | `string` | Test Id for the Pressable wrapping the label | `yb-core-checkbox_labelPressable` |
+| `labelText`    | `string` | Test Id for the label text element           | `yb-core-checkbox_labelText`      |
+| `captionText`  | `string` | Test Id for the caption text element         | `yb-core-checkbox_captionText`    |
+| `checkbox`     | `string` | Test Id for the checkbox Pressable           | `yb-core-checkbox_checkbox`       |
+| `checkedImage` | `string` | Test Id for the checked image                | `yb-core-checkbox_checkedImage`   |
+
+### Note
+
+TestId which is passed for a particular element is always prefixed with yb-core-checkbox by default from within the component.
+No need to append `yb-core-checkbox` to the testID when passing the testID from your end.
+
+### Author
+
+**Deepak Surya S** <br />
+deepaksurya.s@go-yubi.com

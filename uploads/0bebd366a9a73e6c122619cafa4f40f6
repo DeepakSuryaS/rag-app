@@ -1,0 +1,117 @@
+### Platform Support
+
+-   Android
+-   iOS
+-   Web
+
+### Installation
+
+Install with NPM
+
+```bash
+  npm install @yubi/yb-core-avatar
+```
+
+or with Yarn
+
+```bash
+  yarn add @yubi/yb-core-avatar
+```
+
+### Usage
+
+```ts
+import YbCoreAvatar, { YbCoreAvatarGroup } from '@yubi/yb-core-avatar';
+
+function App() {
+    return (
+        <View style={{ gap: 24 }}>
+            <YbCoreAvatar
+                title="John Doe"
+                variant="letter"
+                shape="circle"
+                size="l"
+                styleConnector={styleConnector}
+            />
+            <YbCoreAvatar
+                title="Chris Saputra"
+                size="l"
+                variant="image"
+                imgSrc="https://avatar-list.netlify.app/assets/avatar-1.jpg"
+                styleConnector={styleConnector}
+                shape="circle"
+                isDisabled
+            />
+            <YbCoreAvatar
+                title="Comper Novan"
+                size="m"
+                styleConnector={styleConnector}
+                variant="standard"
+            />
+            <YbCoreAvatar
+                title="+6"
+                size="s"
+                styleConnector={styleConnector}
+                variant="count"
+            />
+            <YbCoreAvatarGroup
+                styleConnector={styleConnector}
+                variant="letter"
+                size="m"
+                users={[
+                    {
+                        name: 'Gopinath Hari',
+                        isActive: true,
+                    },
+                    {
+                        name: 'Gopinath Hari',
+                        isActive: true,
+                    },
+                    {
+                        name: 'Gopinath Hari',
+                        isActive: true,
+                    },
+                    {
+                        name: 'Gopinath Hari',
+                        isActive: true,
+                    },
+                    {
+                        name: 'Sai Apple',
+                        isActive: true,
+                    },
+                    {
+                        name: 'Sai Apple',
+                        isActive: true,
+                    },
+                    {
+                        name: 'Sai Apple',
+                        isActive: true,
+                    },
+                    {
+                        name: 'Sai Apple',
+                        isActive: true,
+                    },
+                ]}
+            />
+        </View>
+    );
+}
+
+export default App;
+```
+
+### Component Description
+
+| Parameter        | Type                                | Description                                                  | Default |
+| :--------------- | :---------------------------------- | :----------------------------------------------------------- | :------ |
+| `title`          | `string`                            | **Required**. Name/Title that will render inside avatar      | -       |
+| `variant`        | `letter` `image` `count` `standard` | The type of avatar                                           | letter  |
+| `styleConnector` | `object`                            | **Required**. The style of excess avatar style(Design Token) | -       |
+| `size`           | `s` `m` `l`                         | The size of the avatar                                       | l       |
+| `isDisabled`     | `boolean`                           | The boolean flag indicates disabled state of the avatar      | false   |
+| `isActive`       | `boolean`                           | The boolean flag indicates active state of avatar            | false   |
+
+### Author
+
+**Sivadass N** <br />
+sivadass.n@go-yubi.com

@@ -1,0 +1,112 @@
+### Installation
+
+```
+yarn add @yubi/yb-core-accordion
+npm install @yubi/yb-core-accordion
+```
+
+### Current Version
+
+```shell
+Stable - 0.2.5
+Beta - 3.0.0-beta.19
+
+```
+
+### Basic Usage
+
+```js
+import { PhoenixProvider } from "@yubi/phoenix-provider";
+import { YbCoreAccordion } from "@yubi/yb-core-accordion";
+function App() {
+    return (
+        <PhoenixProvider baseUrl={DESIGN_TOKENS_BASE_URL}>
+            <YbCoreAccordion
+                variant="standard"
+                isAutoCollapse
+                expandAll
+                toggleOpenIcon="chevron-down"
+                togglePosition="right"
+                toggleCloseIcon="chevron-up"
+                data={[
+                    {
+                        title: longText,
+                        content: <Text>Content 1</Text>,
+                        subTitle: longText,
+                        sideNote: "Note",
+                        badgeText: "999",
+                        open: true,
+                        showIndicator: true,
+                        iconName: "building-01",
+                        indicatorVariant: "error",
+                        // disabled: true,
+                    },
+                    {
+                        title: "Accordion 2",
+                        content: (
+                            <Text style={{ backgroundColor: "aliceblue" }}>
+                                {longText}
+                            </Text>
+                        ),
+                        subTitle: "Sub Title 2",
+                        sideNote: "Note",
+                        badgeText: "999",
+                        open: false,
+                        disabled: false,
+                    },
+                    {
+                        title: "Accordion 3",
+                        content: "Content 3",
+                        subTitle: "Sub Title 3",
+                        sideNote: "Note",
+                        badgeText: "999",
+                        // open: true,
+                        disabled: true,
+                        showIndicator: true,
+                    },
+                ]}
+            />
+        </PhoenixProvider>
+    );
+}
+```
+
+`Note: Width of the accordion is based on the parent container.`
+
+### `data`
+
+Data structure for individual accordion items.
+
+| Property         | Type                                           | Description                                   | Default   |
+| ---------------- | ---------------------------------------------- | --------------------------------------------- | --------- |
+| title            | string                                         | Title of the accordion item. Max 32 char.     | required  |
+| subTitle         | string                                         | Subtitle of the accordion item. Max 160 char. |           |
+| sideNote         | string                                         | Additional note for the item. Max 8 char.     |           |
+| badgeText        | string                                         | Badge text to be displayed.                   |           |
+| content          | any                                            | Content to be displayed inside item.          |           |
+| open             | boolean                                        | If the item is open by default.               | false     |
+| disabled         | boolean                                        | If the item is disabled.                      | false     |
+| showIndicator    | boolean                                        | Determines if an indicator should be shown.   | false     |
+| iconName         | string                                         | Name of the icon to be displayed.             |           |
+| indicatorVariant | 'primary' \| 'success' \| 'error' \| 'special' | Type of indicator to be displayed.            | 'special' |
+
+## Interfaces
+
+### `YbCoreAccordionProps`
+
+Props for the `YbCoreAccordion` component.
+
+| Property        | Type                      | Description                                                                          | Default        |
+| --------------- | ------------------------- | ------------------------------------------------------------------------------------ | -------------- |
+| data            | data[]                    | Array of data objects                                                                | []             |
+| variant         | 'contained' \| 'standard' | Style variant of the accordion                                                       | 'standard'     |
+| togglePosition  | 'left' \| 'right'         | Position of the chevron (expand/collapse icon)                                       | 'right'        |
+| isAutoCollapse  | boolean                   | If the accordion should auto collapse                                                | true           |
+| expandAll       | boolean                   | If all the accordion items should be expanded. Note: This will disable auto collapse | false          |
+| toggleCloseIcon | string                    | Icon name for the close icon                                                         | 'chevron-up'   |
+| toggleOpenIcon  | string                    | Icon name for the open icon                                                          | 'chevron-down' |
+
+### Author
+
+**Deepak Surya S** <br />
+deepaksurya.s@go-yubi.com

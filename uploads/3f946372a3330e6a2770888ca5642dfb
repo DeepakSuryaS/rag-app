@@ -1,0 +1,54 @@
+### Installation
+
+```shell
+yarn add @yubi/yb-core-button
+npm install @yubi/yb-core-button
+```
+
+### Current Version
+
+```shell
+Stable - 3.0.7
+Beta - 3.0.7-beta.20
+
+```
+
+### Basic Usage
+
+```js
+import { PhoenixProvider } from '@yubi/phoenix-provider';
+import { YbCoreButton } from './yb-core-button';
+
+<Phoenix baseUrl={YOUR_BASE_URL}>
+    <YbCoreButton
+        size="s"
+        variant="success"
+        label="Success Button"
+        leadingIcon="arrows-triangle"
+        trailingIcon="arrows-triangle"
+    />
+</PhoenixProvider>
+```
+
+### Props
+
+| Name                 | Type                                                                        | Description                                                                                         |
+| :------------------- | :-------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- |
+| `size`               | `l` \| `m` \| `s`                                                           | The size of the button.                                                                             |
+| `variant`            | `primary` \| `secondary` \| `tertiary` \| `success` \| `error` \| `special` | The type of the button.                                                                             |
+| `label`              | `string`                                                                    | The label of the button.                                                                            |
+| `loading`            | `boolean`                                                                   | Whether the button is in a loading state.                                                           |
+| `disabled`           | `boolean`                                                                   | Whether the button is disabled.                                                                     |
+| `accessibilityLabel` | `string`                                                                    | A label for screen readers to describe the button.                                                  |
+| `leadingIcon`        | `string`                                                                    | A name for the icon on the left.                                                                    |
+| `trailingIcon`       | `string`                                                                    | A name for the icon on the right.                                                                   |
+| `loadingPosition`    | `start` \| `end`                                                            | Position of the loading spinner.                                                                    |
+| `onClick`            | `(event: GestureResponderEvent) => void`                                    | A callback function to handle button clicks.                                                        |
+| `onBlur`             | `(event: NativeSyntheticEvent<TargetedEvent>) => void`                      | A callback function to handle button blur events.                                                   |
+| `onFocus`            | `(event: NativeSyntheticEvent<TargetedEvent>) => void`                      | A callback function to handle button focus events.                                                  |
+| `testIDPrefix`       | `string`                                                                    | A test ID prefix for the button. This will be applied for the container, content wrap and the label |
+
+### Author
+
+**Deepak Surya S** <br />
+deepaksurya.s@go-yubi.com

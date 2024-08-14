@@ -65,36 +65,63 @@ async function saveToVectorDb(document) {
   }
 }
 
-async function queryVectorDb(query) {
-  try {
-    await ensureInitialized();
+// async function queryVectorDb(query) {
+//   try {
+//     await ensureInitialized();
 
-    console.log("Creating embedding for query...");
-    const queryEmbedding = await embeddings.embedQuery(query);
-    console.log("Query embedding created successfully");
+//     console.log("Creating embedding for query...");
+//     const queryEmbedding = await embeddings.embedQuery(query);
+//     console.log("Query embedding created successfully");
 
-    console.log("Querying Pinecone...");
-    const queryResult = await index.query({
-      vector: queryEmbedding,
-      topK: 5,
-      includeMetadata: true,
-    });
-    console.log("Pinecone query completed successfully");
+//     console.log("Querying Pinecone...");
+//     const queryResult = await index.query({
+//       vector: queryEmbedding,
+//       topK: 5,
+//       includeMetadata: true,
+//     });
+//     console.log("Pinecone query completed successfully");
 
-    return queryResult.matches.map(
-      (match) =>
-        new Document({
-          pageContent: match.metadata.content,
-          metadata: {
-            type: match.metadata.type,
-            filename: match.metadata.filename,
-          },
-        })
-    );
-  } catch (error) {
-    console.error("Error in queryVectorDb:", error);
-    throw error;
-  }
+//     return queryResult.matches.map(
+//       (match) =>
+//         new Document({
+//           pageContent: match.metadata.content,
+//           metadata: {
+//             type: match.metadata.type,
+//             filename: match.metadata.filename,
+//           },
+//         })
+//     );
+//   } catch (error) {
+//     console.error("Error in queryVectorDb:", error);
+//     throw error;
+//   }
+// }
+
+async function queryVectorDb(components) {
+  await ensureInitialized();
+
+  console.log("Inside query vector db");
+  const queryString = components.map((c) => c.name).join(" ");
+  console.log("Vector db query string:", queryString);
+  const queryEmbedding = await embeddings.embedQuery(queryString);
+  console.log("Query embedding created successfully");
+
+  const queryResult = await index.query({
+    vector: queryEmbedding,
+    topK: 5,
+    includeMetadata: true,
+  });
+
+  return queryResult.matches.map(
+    (match) =>
+      new Document({
+        pageContent: match.metadata.content,
+        metadata: {
+          type: match.metadata.type,
+          filename: match.metadata.filename,
+        },
+      })
+  );
 }
 
 module.exports = { initVectorDb, saveToVectorDb, queryVectorDb };

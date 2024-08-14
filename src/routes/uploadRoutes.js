@@ -45,63 +45,59 @@ router.post("/documents", upload.array("files", 10), async (req, res) => {
       console.log(`Document saved successfully: ${content.filename}`);
     }
 
-    res
-      .status(200)
-      .json({
-        message: `${files.length} document(s) processed and saved successfully`,
-      });
+    res.status(200).json({
+      message: `${files.length} document(s) processed and saved successfully`,
+    });
   } catch (error) {
     console.error("Error in document upload:", error);
-    res
-      .status(500)
-      .json({
-        error: "An error occurred during document processing",
-        details: error.message,
-      });
+    res.status(500).json({
+      error: "An error occurred during document processing",
+      details: error.message,
+    });
   }
 });
 
-// In queryRoutes.js
-router.post(
-  "/generate-code",
-  upload.fields([
-    { name: "images", maxCount: 5 },
-    { name: "json", maxCount: 1 },
-    { name: "text", maxCount: 1 },
-  ]),
-  async (req, res) => {
-    try {
-      const { files, body } = req;
-      const { prompt } = body;
+// // In queryRoutes.js
+// router.post(
+//   "/generate-code",
+//   upload.fields([
+//     { name: "images", maxCount: 5 },
+//     { name: "json", maxCount: 1 },
+//     { name: "text", maxCount: 1 },
+//   ]),
+//   async (req, res) => {
+//     try {
+//       const { files, body } = req;
+//       const { prompt } = body;
 
-      if (!prompt) {
-        return res.status(400).json({ error: "Prompt is required" });
-      }
+//       if (!prompt) {
+//         return res.status(400).json({ error: "Prompt is required" });
+//       }
 
-      console.log("Querying vector database...");
-      const relevantDocs = await queryVectorDb(prompt);
-      console.log(`Retrieved ${relevantDocs.length} relevant documents`);
+//       console.log("Querying vector database...");
+//       const relevantDocs = await queryVectorDb(prompt);
+//       console.log(`Retrieved ${relevantDocs.length} relevant documents`);
 
-      console.log("Generating code...");
-      const generatedCode = await generateCode(
-        prompt,
-        files,
-        body,
-        relevantDocs
-      );
-      console.log("Code generated successfully");
+//       console.log("Generating code...");
+//       const generatedCode = await generateCode(
+//         prompt,
+//         files,
+//         body,
+//         relevantDocs
+//       );
+//       console.log("Code generated successfully");
 
-      res.status(200).json({ code: generatedCode });
-    } catch (error) {
-      console.error("Error in code generation:", error);
-      res
-        .status(500)
-        .json({
-          error: "An error occurred during code generation",
-          details: error.message,
-        });
-    }
-  }
-);
+//       res.status(200).json({ code: generatedCode });
+//     } catch (error) {
+//       console.error("Error in code generation:", error);
+//       res
+//         .status(500)
+//         .json({
+//           error: "An error occurred during code generation",
+//           details: error.message,
+//         });
+//     }
+//   }
+// );
 
 module.exports = router;

@@ -1,7 +1,10 @@
 const Anthropic = require("@anthropic-ai/sdk");
+const FigmaService = require("./figmaService");
+const { queryVectorDb } = require("./vectorDbService");
 const fs = require("fs").promises;
 
 let anthropic;
+const figmaService = new FigmaService(process.env.FIGMA_ACCESS_TOKEN);
 
 function initAnthropicClient() {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -41,11 +44,10 @@ async function generateCode(prompt, files, body, relevantDocs) {
       throw new Error("Anthropic client is not initialized");
     }
 
-    const context = relevantDocs.map((doc) => doc.pageContent).join("\n\n");
-
     let imagesContent = "";
     let jsonContent = "";
     let textContent = body.text || "";
+    let components = [];
 
     if (files && files.images) {
       imagesContent = files.images
@@ -55,7 +57,24 @@ async function generateCode(prompt, files, body, relevantDocs) {
 
     if (files && files.json && files.json[0]) {
       jsonContent = await fs.readFile(files.json[0].path, "utf8");
+
+      // Analyze Figma file
+      console.log("Analyzing Figma file...");
+      // const components = await figmaService.getFileComponents(figmaFileId);
+      console.log("figma check:", JSON.parse(jsonContent));
+      //   return jsonContent;
+      components = await figmaService.getFileComponents(
+        JSON.parse(jsonContent)?.document
+      );
+      console.log("Figma components found:", components);
     }
+
+    // Query vector database
+    console.log("Querying vector database...", components);
+    const relevantDocs = await queryVectorDb(components || prompt);
+    console.log("Relevant documents retrieved:", relevantDocs.length);
+
+    const context = relevantDocs.map((doc) => doc.pageContent).join("\n\n");
 
     // const systemPrompt = `You are an AI assistant specialized in generating react-native-web code based on UI design specifications and component library documentation. Use the following context to inform your code generation: ${context}`;
 
@@ -161,7 +180,14 @@ Based on the above information, please generate the appropriate react-native-web
     });
 
     console.log("Received response from Anthropic API");
-    return response.content[0].text;
+
+    const parsedResponse = JSON.parse(response.content[0].text);
+    return {
+      code: parsedResponse.code,
+      explanation: parsedResponse.explanation,
+    };
+
+    // return response.content[0].text;
   } catch (error) {
     console.error("Error in generateCode:", error);
     throw error;
